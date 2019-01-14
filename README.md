@@ -10,7 +10,7 @@ Best way to understand what that means is to review the example below.
 
 Let's assume we need to merge following objects.
 
-```typescipt
+```typescript
 const obj1 = {
     parent: {
         child: {
@@ -20,7 +20,7 @@ const obj1 = {
 };
 ```
 
-```typescipt
+```typescript
 const obj2 = {
     parent: {
         child: {
@@ -39,7 +39,7 @@ const result = merge(obj1, obj2);
 
 ... will produce `result` with the following structure:
 
-```typescript
+```yaml
 {
     parent:
         child: {
