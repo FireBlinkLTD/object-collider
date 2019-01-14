@@ -1,6 +1,6 @@
 {
   "name": "object-collider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Merge plain old objects without source modifications and optionally provide custom merge behavior per specific child path.",
   "main": "dist/index.js",
   "scripts": {
@@ -44,5 +44,15 @@
   },
   "keywords": [
     "fireblink", "object", "merge", "collide", "recursive", "path", "modify", "extend"
-  ]
+  ],
+  "contributors": [
+    {
+      "name": "Vladyslav Tkachenko",
+      "email": "vlad@fireblink.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FireBlinkLTD/object-collider.git"
+  }
 }
