@@ -1,5 +1,10 @@
 # Object Collider
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/FireBlinkLTD/object-collider.svg)](https://greenkeeper.io/)
+[![CircleCI](https://circleci.com/gh/FireBlinkLTD/object-collider.svg?style=svg)](https://circleci.com/gh/FireBlinkLTD/object-collider)
+[![codecov](https://codecov.io/gh/FireBlinkLTD/object-collider/branch/master/graph/badge.svg)](https://codecov.io/gh/FireBlinkLTD/object-collider)
+
+
 Merge plain old objects without source modifications and optionally provide custom merge behavior per specific child path.
 
 ## Why yet another object merge library?
