@@ -37,9 +37,9 @@ const obj2 = {
 The default behaviour of this library is to concatenate array items at the same path, so following script ... 
 
 ```typescript
-import { merge } from 'object-collider';
+import { collide } from 'object-collider';
 
-const result = merge(obj1, obj2);
+const result = collide(obj1, obj2);
 ```
 
 ... will produce `result` with the following structure:
@@ -56,9 +56,9 @@ const result = merge(obj1, obj2);
 However this might not be what app needs. Modifiers are here for the rescue:
 
 ```typescript
-import { merge } from 'object-collider';
+import { collide } from 'object-collider';
 
-const result = merge(obj1, obj2, {
+const result = collide(obj1, obj2, {
     '$.parent.child.field': (arr1, arr2) => {
         // just return second array to override all values
         return arr2;
@@ -94,3 +94,13 @@ Library is using dot separated sytax to identify merge path, starting with `$` t
 
 Note: you're allowed to replace the prefix (`$`) with any other by providing it as a 4th argument of `collide` function.
 
+## Unsafe Merge
+
+In some cases you may need to modify the existing object, so you can do that with `collideUnsafe` function:
+
+```typescript
+import { collideUnsafe } from 'object-collider';
+
+// obj1 will get modified directly
+collideUnsafe(obj1, obj2);
+```
