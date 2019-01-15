@@ -1,5 +1,5 @@
 import { suite, test } from 'mocha-typescript';
-import { collide } from '../../src/utils/MergeUtil';
+import { collide, collideUnsafe } from '../../src/utils/CollideUtil';
 import * as assert from 'assert';
 
 const chai = require('chai');
@@ -7,13 +7,14 @@ const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 
 @suite()
-class MergeUtilTestSuite {
+class CollideUtilTestSuite {
     @test()
-    async testMergeWithoutModifiers(): Promise<void> {
+    async testCollideWithoutModifiers(): Promise<void> {
         const result = collide(
             {
                 array: [1, 2],
                 obj: {
+                    n: 'something',
                     a: true,
                     c: 'yes',
                     array: [11, 12],
@@ -26,6 +27,7 @@ class MergeUtilTestSuite {
                     b: false,
                     d: 'd',
                     e: 1,
+                    n: null,
                     array: [12, 13, 14],
                 },
                 override: 111,
@@ -40,6 +42,7 @@ class MergeUtilTestSuite {
                 c: 'yes',
                 d: 'd',
                 e: 1,
+                n: null,
                 array: [11, 12, 13, 14],
             },
             override: 111,
@@ -47,7 +50,50 @@ class MergeUtilTestSuite {
     }
 
     @test()
-    async testMergeWithModifiers(): Promise<void> {
+    async testCollideUnsafeWithoutModifiers(): Promise<void> {
+        const obj1 = {
+            array: [1, 2],
+            obj: {
+                n: 'something',
+                a: true,
+                c: 'yes',
+                array: [11, 12],
+            },
+            override: 11,
+        };
+
+        collideUnsafe(
+            obj1,
+            {
+                array: [3, 4],
+                obj: {
+                    b: false,
+                    d: 'd',
+                    e: 1,
+                    n: null,
+                    array: [12, 13, 14],
+                },
+                override: 111,
+            },
+        );
+
+        assert.deepStrictEqual(obj1, {
+            array: [1, 2, 3, 4],
+            obj: {
+                a: true,
+                b: false,
+                c: 'yes',
+                d: 'd',
+                e: 1,
+                n: null,
+                array: [11, 12, 13, 14],
+            },
+            override: 111,
+        });
+    }
+
+    @test()
+    async testCollideWithModifiers(): Promise<void> {
         const result = collide(
             {
                 array: [1, 2],
@@ -90,7 +136,7 @@ class MergeUtilTestSuite {
     }
 
     @test()
-    async testMergeWithModifiersAndCustomPath(): Promise<void> {
+    async testCollideWithModifiersAndCustomPath(): Promise<void> {
         const result = collide(
             {
                 array: [1, 2],
@@ -134,7 +180,7 @@ class MergeUtilTestSuite {
     }
 
     @test()
-    async testRootObjectMergeWithModifiers(): Promise<void> {
+    async testRootObjectCollideWithModifiers(): Promise<void> {
         const result = collide(
             {
                 a: 11,
@@ -157,7 +203,7 @@ class MergeUtilTestSuite {
     }
 
     @test()
-    async testRootArrayMergeWithModifiers(): Promise<void> {
+    async testRootArrayCollideWithModifiers(): Promise<void> {
         const result = collide([11], [111], {
             $: (a: any, b: any) => {
                 return [a[0] * 1000 + b[0]];
@@ -207,10 +253,10 @@ class MergeUtilTestSuite {
     async invalidTypes(): Promise<void> {
         chai.expect(() => {
             collide({ a: { b: true } }, { a: true });
-        }).to.throw('Unable to merge. Merge value at path $.a is not an object.');
+        }).to.throw('Unable to collide. Collide value at path $.a is not an object.');
 
         chai.expect(() => {
             collide({ a: [1, 2] }, { a: true });
-        }).to.throw('Unable to merge. Merge value at path $.a is not an array.');
+        }).to.throw('Unable to collide. Collide value at path $.a is not an array.');
     }
 }

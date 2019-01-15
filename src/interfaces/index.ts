@@ -1,1 +1,1 @@
-export * from './IMergeModifiers';
+export * from './ICollideModifiers';

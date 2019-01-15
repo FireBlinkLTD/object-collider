@@ -1,2 +1,2 @@
-export * from './MergeUtil';
+export * from './CollideUtil';
 export * from './TypeUtil';

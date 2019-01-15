@@ -1,2 +1,2 @@
 export * from './BasicType';
-export * from './MergeModificationFunctionType';
+export * from './CollideModificationFunctionType';

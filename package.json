@@ -1,10 +1,9 @@
 {
   "name": "object-collider",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Merge plain old objects without source modifications and optionally provide custom merge behavior per specific child path.",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
     "build": "rimraf ./dist/ && tsc",
     "test": "rimraf ./coverage/ && nyc --reporter=html --reporter=text mocha",
     "commit": "npx git-cz",
@@ -16,7 +15,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "7.3.1",
+    "@commitlint/cli": "7.3.2",
     "@commitlint/config-conventional": "7.3.1",
     "@types/chai": "4.1.7",
     "@types/mocha": "5.2.5",
