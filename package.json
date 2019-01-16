@@ -1,6 +1,6 @@
 {
   "name": "object-collider",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Merge plain old objects without source modifications and optionally provide custom merge behavior per specific child path.",
   "main": "dist/index.js",
   "scripts": {
