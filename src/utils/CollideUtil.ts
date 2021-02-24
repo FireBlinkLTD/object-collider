@@ -25,7 +25,7 @@ export function collide(arg1: any, arg2: any, modifiers?: ICollideModifiers, sta
  * @param startPath the entry path to start modifier path generation. Default value: $
  * @returns collide result
  */
-export function collideUnsafe(arg1: any, arg2: any,  modifiers?: ICollideModifiers, startPath: string = '$'): any {
+export function collideUnsafe(arg1: any, arg2: any, modifiers?: ICollideModifiers, startPath = '$'): any {
     if (arg2 === undefined) {
         return arg1;
     }
@@ -78,14 +78,15 @@ function collideObjects(obj1: any, obj2: any, path: string, modifiers?: ICollide
 
     for (const key of Object.keys(obj2)) {
         const subPath = path + '.' + key;
-
-        if (obj1[key] === undefined) {
-            obj1[key] = obj2[key];
-        } else {
-            if (modifiers && modifiers[subPath]) {
-                obj1[key] = modifiers[subPath](obj1[key], obj2[key]);
+        if (key !== '__proto__') {
+            if (obj1[key] === undefined) {
+                obj1[key] = obj2[key];
             } else {
-                obj1[key] = collideUnsafe(obj1[key], obj2[key], modifiers, subPath);
+                if (modifiers && modifiers[subPath]) {
+                    obj1[key] = modifiers[subPath](obj1[key], obj2[key]);
+                } else {
+                    obj1[key] = collideUnsafe(obj1[key], obj2[key], modifiers, subPath);
+                }
             }
         }
     }

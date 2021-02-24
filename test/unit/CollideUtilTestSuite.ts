@@ -62,20 +62,17 @@ class CollideUtilTestSuite {
             override: 11,
         };
 
-        collideUnsafe(
-            obj1,
-            {
-                array: [3, 4],
-                obj: {
-                    b: false,
-                    d: 'd',
-                    e: 1,
-                    n: null,
-                    array: [12, 13, 14],
-                },
-                override: 111,
+        collideUnsafe(obj1, {
+            array: [3, 4],
+            obj: {
+                b: false,
+                d: 'd',
+                e: 1,
+                n: null,
+                array: [12, 13, 14],
             },
-        );
+            override: 111,
+        });
 
         assert.deepStrictEqual(obj1, {
             array: [1, 2, 3, 4],
@@ -164,7 +161,7 @@ class CollideUtilTestSuite {
                 '#.custom.obj': (a: any, b: any) => Object.assign(a, b),
                 '#.custom.override': (a: any) => a,
             },
-            '#.custom'
+            '#.custom',
         );
 
         assert.deepStrictEqual(result, {
@@ -258,5 +255,29 @@ class CollideUtilTestSuite {
         chai.expect(() => {
             collide({ a: [1, 2] }, { a: true });
         }).to.throw('Unable to collide. Collide value at path $.a is not an array.');
+    }
+
+    @test()
+    async testWithPrototypePollution(): Promise<void> {
+        const collideWith = JSON.parse(`{
+            "__proto__": {
+                "vulnerable": "yes"
+            },
+            "array": [3, 4]
+        }`);
+
+        console.log(collideWith);
+
+        const result = collide(
+            {
+                array: [1, 2],
+            },
+            collideWith,
+        );
+
+        assert.ok(!result.vulnerable);
+        assert.deepStrictEqual(result, {
+            array: [1, 2, 3, 4],
+        });
     }
 }
