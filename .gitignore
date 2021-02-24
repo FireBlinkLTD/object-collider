@@ -1,29 +1,29 @@
-# Use yarn.lock instead
-package-lock.json
+*
 
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+!/src
+!/src/**
+!/index.ts
+!/tsconfig.json
+!/yarn.lock
 
-# IDE
-.idea/*
-.vscode/*
-*.iml
+!/test
+!/test/**
 
-# NPM
-node_modules
-.npm
-.npmrc
+!.commitlintrc.yml
+!.czrc
+!.editoconfig
+!.gitignore
+!.huskyrc.yml
+!.lintstagedrc.yml
+!.mocharc.yml
+!.npmignore
+!.prettierignore
+!.prettierrc.yml
+!tslint.json
 
-# Tests
-lib-cov
-coverage
-.nyc_output
-mochawesome-report
+!CODEOWNERS
+!CONTRIBUTING.md
+!LICENSE
+!README.md
 
-# Project
-dist
-src/**.js
+

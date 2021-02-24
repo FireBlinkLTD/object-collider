@@ -1,4 +1,4 @@
-import { suite, test } from 'mocha-typescript';
+import { suite, test } from '@testdeck/mocha';
 import { collide, collideUnsafe } from '../../src/utils/CollideUtil';
 import * as assert from 'assert';
 
@@ -265,8 +265,6 @@ class CollideUtilTestSuite {
             },
             "array": [3, 4]
         }`);
-
-        console.log(collideWith);
 
         const result = collide(
             {
