@@ -9,7 +9,6 @@
     "commit": "npx git-cz",
     "lint": "tslint 'src/**/*.ts' 'test/**/*.ts'",
     "prettify": "prettier src/**/*.{md,ts,json} test/**/*.{md,ts,json} index.{md,ts,json} --write --config .prettierrc.yml && tslint -c tslint.json 'src/**/*.ts' 'test/**/*.ts' 'index.ts' --fix",
-    "prepublishOnly": "npm run build",
     "snyk-protect": "snyk protect"
   },
   "author": "FireBlink LTD",
