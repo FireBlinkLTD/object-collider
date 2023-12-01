@@ -9,17 +9,15 @@
 !/test
 !/test/**
 
-!.commitlintrc.yml
-!.czrc
+!/.husky
+!/.husky/**
+
 !.editoconfig
 !.gitignore
-!.huskyrc.yml
 !.lintstagedrc.yml
 !.mocharc.yml
 !.npmignore
-!.prettierignore
-!.prettierrc.yml
-!tslint.json
+!.eslintrc.cjs
 
 !CODEOWNERS
 !CONTRIBUTING.md

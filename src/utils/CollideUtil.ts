@@ -1,6 +1,5 @@
 import { isArray, isMissing, isBasicType, isObject } from './TypeUtil';
 import { ICollideModifiers } from '../interfaces';
-import { BasicType } from '../types';
 
 /**
  * collide 2 arguments
@@ -10,7 +9,7 @@ import { BasicType } from '../types';
  * @param startPath the entry path to start modifier path generation. Default value: $
  * @returns collide result
  */
-export function collide(arg1: any, arg2: any, modifiers?: ICollideModifiers, startPath = '$'): any {
+export function collide(arg1: unknown, arg2: unknown, modifiers?: ICollideModifiers, startPath = '$'): unknown {
     const arg1Clone = isMissing(arg1) ? arg1 : JSON.parse(JSON.stringify(arg1));
     const arg2Clone = isMissing(arg2) ? arg2 : JSON.parse(JSON.stringify(arg2));
 
@@ -25,7 +24,7 @@ export function collide(arg1: any, arg2: any, modifiers?: ICollideModifiers, sta
  * @param startPath the entry path to start modifier path generation. Default value: $
  * @returns collide result
  */
-export function collideUnsafe(arg1: any, arg2: any, modifiers?: ICollideModifiers, startPath = '$'): any {
+export function collideUnsafe(arg1: unknown, arg2: unknown, modifiers?: ICollideModifiers, startPath = '$'): unknown {
     if (arg2 === undefined) {
         return arg1;
     }
@@ -39,10 +38,10 @@ export function collideUnsafe(arg1: any, arg2: any, modifiers?: ICollideModifier
     }
 
     if (isArray(arg1)) {
-        return collideArrays(arg1, arg2, startPath, modifiers);
+        return collideArrays(<unknown[]> arg1, <unknown[]> arg2, startPath, modifiers);
     }
 
-    return collideObjects(arg1, arg2, startPath, modifiers);
+    return collideObjects(<Record<string, unknown>> arg1,<Record<string, unknown>> arg2, startPath, modifiers);
 }
 
 /**
@@ -52,9 +51,9 @@ export function collideUnsafe(arg1: any, arg2: any, modifiers?: ICollideModifier
  * @param path
  * @param modifiers
  */
-function collideBasic(arg1: BasicType, arg2: BasicType, path: string, modifiers?: ICollideModifiers): any {
+function collideBasic<T>(arg1: T, arg2: T, path: string, modifiers?: ICollideModifiers): T {
     if (modifiers && modifiers[path]) {
-        return modifiers[path](arg1, arg2);
+        return <T> modifiers[path](arg1, arg2);
     }
 
     return arg2;
@@ -67,13 +66,13 @@ function collideBasic(arg1: BasicType, arg2: BasicType, path: string, modifiers?
  * @param path
  * @param modifiers
  */
-function collideObjects(obj1: any, obj2: any, path: string, modifiers?: ICollideModifiers): any {
+function collideObjects(obj1: Record<string, unknown>, obj2: Record<string, unknown>, path: string, modifiers?: ICollideModifiers): Record<string, unknown> {
     if (!isObject(obj2)) {
         throw new Error(`Unable to collide. Collide value at path ${path} is not an object.`);
     }
 
     if (modifiers && modifiers[path]) {
-        return modifiers[path](obj1, obj2);
+        return <Record<string, unknown>> modifiers[path](obj1, obj2);
     }
 
     for (const key of Object.keys(obj2)) {
@@ -101,13 +100,13 @@ function collideObjects(obj1: any, obj2: any, path: string, modifiers?: ICollide
  * @param path
  * @param modifiers
  */
-function collideArrays(arr1: any[], arr2: any[], path: string, modifiers?: ICollideModifiers): any {
+function collideArrays<T>(arr1: T[], arr2: T[], path: string, modifiers?: ICollideModifiers): T[] {
     if (!isArray(arr2)) {
         throw new Error(`Unable to collide. Collide value at path ${path} is not an array.`);
     }
 
     if (modifiers && modifiers[path]) {
-        return modifiers[path](arr1, arr2);
+        return <T[]> modifiers[path](arr1, arr2);
     } else {
         for (const item of arr2) {
             if (arr1.indexOf(item) < 0) {

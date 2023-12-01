@@ -1,4 +1,4 @@
 /**
  * Collide modification function type definition
  */
-export type CollideModificationFunctionType = (arg1: any, arg2: any) => any;
+export type CollideModificationFunctionType = (arg1: unknown, arg2: unknown) => unknown;
