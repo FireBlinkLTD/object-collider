@@ -1,7 +1,6 @@
 # Object Collider
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/FireBlinkLTD/object-collider.svg)](https://greenkeeper.io/)
-[![CircleCI](https://circleci.com/gh/FireBlinkLTD/object-collider.svg?style=svg)](https://circleci.com/gh/FireBlinkLTD/object-collider)
+[![Known Vulnerabilities](https://snyk.io/test/github/FireBlinkLTD/object-collider/badge.svg)](https://snyk.io/test/github/FireBlinkLTD/object-collider)
 [![codecov](https://codecov.io/gh/FireBlinkLTD/object-collider/branch/master/graph/badge.svg)](https://codecov.io/gh/FireBlinkLTD/object-collider)
 
 
@@ -34,7 +33,7 @@ const obj2 = {
     }
 };
 ```
-The default behaviour of this library is to concatenate array items at the same path, so following script ... 
+The default behaviour of this library is to concatenate array items at the same path, so following script ...
 
 ```typescript
 import { collide } from 'object-collider';
@@ -72,7 +71,7 @@ const result = collide(obj1, obj2, {
 
 ### Objects
 
-Library will recurcivelly travel over the object fields tree till and will merge each leaf individually. 
+Library will recurcivelly travel over the object fields tree till and will merge each leaf individually.
 
 App will stop recursion on basic types (limited set of primitive JS types), `null`, `undefined` or array.
 
